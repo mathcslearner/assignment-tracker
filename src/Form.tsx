@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import Priority from './priority.tsx';
-import Status from './status.tsx';
 
 
 //Pass the isOpen state from the main app component to the assignment form component using props
@@ -8,43 +6,71 @@ import Status from './status.tsx';
 type AssignmentFormProps = {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    assignmentName: string;
+    setAssignmentName: React.Dispatch<React.SetStateAction<string>>;
+    courseName: string;
+    setCourseName: React.Dispatch<React.SetStateAction<string>>;
+    weight: number;
+    setWeight: React.Dispatch<React.SetStateAction<number>>;
+    priority: string;
+    setPriority: React.Dispatch<React.SetStateAction<string>>;
+    date: any;
+    setDate: React.Dispatch<React.SetStateAction<any>>;
+    time: any;
+    setTime: React.Dispatch<React.SetStateAction<any>>;
+    status: string;
+    setStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AssignmentForm = ({isOpen, setIsOpen}: AssignmentFormProps) => {
+const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, courseName, setCourseName, weight, setWeight, priority, setPriority, date, setDate, time, setTime, status, setStatus}: AssignmentFormProps) => {
 
     if (!isOpen){
         return null;
     }
+
+    const Submit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        
+    }
     
     return(
         <div id="modal-container" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div id="form-container" className="bg-white w-1/2 h-1/2 m-auto">
+            <div id="form-container" className="bg-white w-1/2 h-1/2 m-auto flex flex-col">
                 <button id="close-btn" type="button" className="fixed top-45 right-82 bg-white text-black text-2xl rounded-full w-10 h-10 flex justify-center items-center font-semibold border-2 border-black" onClick={()=>setIsOpen(!isOpen)}>x</button>
                 <h1 className="text-2xl text-center pt-2">Add a new assignment</h1>
                 <h2 className="text-xl text-center pt-2">All fields are required.</h2>
-                <form className="flex mt-2 flex-col gap-2">
+                <form className="flex mt-2 flex-col gap-2 justify-center">
                     <label className="pl-2">Assignment Name 
-                        <input type="text" className="ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: Assignment 1"></input>
+                        <input value={assignmentName} onChange = {(e) => setAssignmentName(e.target.value)} type="text" className="ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: Assignment 1"></input>
                     </label>
                     <label className="pl-2">Course Name
-                        <input type="text" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: CS145"></input>
+                        <input value={courseName} onChange = {(e) => setCourseName(e.target.value)} type="text" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: CS145"></input>
                     </label>
                     <label className="pl-2">Weight
-                        <input type="number" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>
+                        <input value={weight} onChange={(e) => setWeight(Number(e.target.value))} type="number" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>
                     </label >
                     <label className="pl-2">Priority
-                        <Priority />
+                        <select value={priority} onChange={(e) => setPriority(e.target.value)} className = "ml-5 border-[1.5px] border-gray shadow-sm px-2">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
                     </label>
                     <label className="pl-2">Date
-                        <input type="date" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2"></input>
+                        <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2"></input>
                     </label>
                     <label className="pl-2">Time 
-                        <input type="time" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2"></input>
+                        <input value={time} onChange={(e) => setTime(e.target.value)} type="time" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2"></input>
                     </label>
                     <label className="pl-2">Status 
-                        <Status />
+                        <select value={status} onChange={(e) => setStatus(e.target.value)} className = "ml-5 border-[1.5px] border-gray shadow-sm px-2">
+                            <option value="Not Started">Not Started</option>
+                            <option value="In Progress">In Progress</option>
+                        </select>
                     </label>
                 </form>
+                <button type="submit" className="border-[1.5px] border-gray m-auto" onClick={Submit}>Submit</button>
             </div>
         </div>
     )
