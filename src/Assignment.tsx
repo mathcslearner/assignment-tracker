@@ -27,6 +27,14 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
         }))
     }
 
+    const daysLeft = (duedate: string): number => {
+        const today = new Date();
+        const due = new Date(duedate);
+        const diff = due.getTime() - today.getTime();
+
+        return Math.max(Math.ceil(diff/(1000*60*60*24)), 0);
+    }
+
     return(
         <div id="assignment-row" className="border-2 border-gray-600 flex flex-row items-center justify-between px-10 bg-[#03DAC6] mx-2 h-10">
             <div>{name}</div>
@@ -40,6 +48,7 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
             </select>
+            <div>{daysLeft(date)}</div>
         </div>
     )
 }
