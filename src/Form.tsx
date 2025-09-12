@@ -10,8 +10,8 @@ type AssignmentFormProps = {
     setAssignmentName: React.Dispatch<React.SetStateAction<string>>;
     courseName: string;
     setCourseName: React.Dispatch<React.SetStateAction<string>>;
-    weight: number;
-    setWeight: React.Dispatch<React.SetStateAction<number>>;
+    weight: string;
+    setWeight: React.Dispatch<React.SetStateAction<string>>;
     priority: string;
     setPriority: React.Dispatch<React.SetStateAction<string>>;
     date: any;
@@ -33,7 +33,17 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
     const Submit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        
+        setAssignmentList([...assignmentList, {
+            name: assignmentName,
+            coursename: courseName,
+            weight: Number(weight),
+            priority: priority,
+            date: date,
+            time: time,
+            status: status
+        }])
+
+        setIsOpen(false);
     }
     
     return(
@@ -50,7 +60,7 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
                         <input value={courseName} onChange = {(e) => setCourseName(e.target.value)} type="text" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: CS145"></input>
                     </label>
                     <label className="pl-2">Weight
-                        <input value={weight} onChange={(e) => setWeight(Number(e.target.value))} type="number" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>
+                        <input value={weight} onChange={(e) => setWeight(e.target.value.replace(/^0+(?=\d)/, ''))} type="number" min={0} max={100} className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>
                     </label >
                     <label className="pl-2">Priority
                         <select value={priority} onChange={(e) => setPriority(e.target.value)} className = "ml-5 border-[1.5px] border-gray shadow-sm px-2">
@@ -60,10 +70,10 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
                         </select>
                     </label>
                     <label className="pl-2">Date
-                        <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2"></input>
+                        <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>
                     </label>
                     <label className="pl-2">Time 
-                        <input value={time} onChange={(e) => setTime(e.target.value)} type="time" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2"></input>
+                        <input value={time} onChange={(e) => setTime(e.target.value)} type="time" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>
                     </label>
                     <label className="pl-2">Status 
                         <select value={status} onChange={(e) => setStatus(e.target.value)} className = "ml-5 border-[1.5px] border-gray shadow-sm px-2">
@@ -72,7 +82,7 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
                         </select>
                     </label>
                 </form>
-                <button type="submit" className="border-[1.5px] border-gray m-auto" onClick={Submit}>Submit</button>
+                <button type="submit" className="border-[1.5px] border-gray m-auto p-2" onClick={Submit}>Submit</button>
             </div>
         </div>
     )

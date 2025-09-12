@@ -18,11 +18,7 @@ const Assignment = ({name, courseName, weight, priority, date, time, status}: As
             <div>{name}</div>
             <div>{courseName}</div>
             <div>{weight}%</div>
-            <select value={priority} onChange = {()=>{}}>
-                <option value="High" className="bg-red-500">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-            </select>
+            <div>{priority}</div>
             <div>{date}</div>
             <div>{time}</div>
             <div>{status}</div>
