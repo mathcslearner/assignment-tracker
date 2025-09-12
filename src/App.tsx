@@ -15,13 +15,14 @@ const App = () => {
   const [date, setDate] = useState<any>("");
   const [time, setTime] = useState<any>("");
   const [status, setStatus] = useState<string>("Not Started");
-  const [assignmentList, setAssignmentList] = useState<any[]>([{
+  const [assignmentList, setAssignmentList] = useState<Array<any>>([{
+    id: "A1-CS145",
     name: "A1",
     coursename: "CS145",
     weight: 10,
     priority: "High",
     date: "2022-09-07",
-    time: "11:59 PM",
+    time: "11:59",
     status: "Not Started"
   }]);
 
@@ -44,8 +45,8 @@ const App = () => {
       <div id="assignment-header" className="border-2 border-gray-500 flex flex-row"></div>
 
       <div id="assignments-container" className="pt-2">
-        <Assignment name={"A1"} courseName={"CS145"} weight={10} priority={"High"} date={"2022-09-07"} time={"11:59 PM"} status={"Not Started"}/>
-        {assignmentList.map((assignment) => <Assignment name={assignment.name} courseName={assignment.coursename} weight={assignment.weight} priority={assignment.priority} date={assignment.date} time={assignment.time} status={assignment.status} />)}
+        <Assignment name={"A1"} courseName={"CS145"} weight={10} priority={"High"} date={"2022-09-07"} time={"11:59"} status={"Not Started"} assignmentList={assignmentList} setAssignmentList={setAssignmentList}/>
+        {assignmentList.map((assignment) => <Assignment name={assignment.name} courseName={assignment.coursename} weight={assignment.weight} priority={assignment.priority} date={assignment.date} time={assignment.time} status={assignment.status} assignmentList={assignmentList} setAssignmentList={setAssignmentList}/>)}
       </div>
 
       <button type="button" className="rounded-full w-20 h-20 bg-white fixed bottom-3 right-3 font-semibold flex justify-center items-center" onClick={() => {openForm()}}><p className="text-4xl">+</p></button>

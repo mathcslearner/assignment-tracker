@@ -8,10 +8,24 @@ type AssignmentProps = {
     date: any;
     time: any;
     status: string;
+    assignmentList: Array<any>;
+    setAssignmentList: React.Dispatch<React.SetStateAction<Array<any>>>;
 }
 
-const Assignment = ({name, courseName, weight, priority, date, time, status}: AssignmentProps) => {
+const Assignment = ({name, courseName, weight, priority, date, time, status, assignmentList, setAssignmentList}: AssignmentProps) => {
     
+    const [newStatus, setNewStatus] = useState<string>(status);
+
+    const changeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setNewStatus(e.target.value);
+        setAssignmentList(assignmentList.map((assignment) => {
+            if (assignment.id === name + courseName) {
+                return {...assignment, status: newStatus};
+            } else{
+                return assignment;
+            }
+        }))
+    }
 
     return(
         <div id="assignment-row" className="border-2 border-gray-600 flex flex-row items-center justify-between px-10 bg-[#03DAC6] mx-2 h-10">
@@ -21,7 +35,11 @@ const Assignment = ({name, courseName, weight, priority, date, time, status}: As
             <div>{priority}</div>
             <div>{date}</div>
             <div>{time}</div>
-            <div>{status}</div>
+            <select value={newStatus} onChange={(e)=>{changeStatus(e)}}>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
         </div>
     )
 }

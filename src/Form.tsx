@@ -20,8 +20,8 @@ type AssignmentFormProps = {
     setTime: React.Dispatch<React.SetStateAction<any>>;
     status: string;
     setStatus: React.Dispatch<React.SetStateAction<string>>;
-    assignmentList: Array<object>;
-    setAssignmentList: React.Dispatch<React.SetStateAction<Array<object>>>;
+    assignmentList: Array<any>;
+    setAssignmentList: React.Dispatch<React.SetStateAction<Array<any>>>;
 }
 
 const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, courseName, setCourseName, weight, setWeight, priority, setPriority, date, setDate, time, setTime, status, setStatus, assignmentList, setAssignmentList}: AssignmentFormProps) => {
@@ -34,6 +34,7 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
         e.preventDefault();
 
         setAssignmentList([...assignmentList, {
+            id: assignmentName + courseName,
             name: assignmentName,
             coursename: courseName,
             weight: Number(weight),
