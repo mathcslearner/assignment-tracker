@@ -14,8 +14,6 @@ type AssignmentProps = {
 
 const Assignment = ({name, courseName, weight, priority, date, time, status, assignmentList, setAssignmentList}: AssignmentProps) => {
     
-    const [newStatus, setNewStatus] = useState<string>(status);
-
     const changeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (e.target.value === "Completed"){
             window.alert("Congratulations on finishing this assignment! It will now be removed from the tracker.");
