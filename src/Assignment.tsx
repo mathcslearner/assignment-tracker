@@ -17,14 +17,16 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
     const [newStatus, setNewStatus] = useState<string>(status);
 
     const changeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setNewStatus(e.target.value);
-        setAssignmentList(assignmentList.map((assignment) => {
-            if (assignment.id === name + "-" +courseName) {
-                return {...assignment, status: newStatus};
-            } else{
-                return assignment;
-            }
-        }))
+        if (e.target.value === "Completed"){
+            window.alert("Congratulations on finishing this assignment! It will now be removed from the tracker.");
+            setAssignmentList(prev => prev.filter((assignment) => {return assignment.id !== name + "-" + courseName}));
+        }
+
+        else{
+            setAssignmentList(prev => prev.map((assignment) => {    
+               return assignment.id === name + "-" + courseName ? {...assignment, status: e.target.value} : assignment;
+            }))
+        }
     }
 
     const deleteAssignment = () => {
@@ -51,7 +53,7 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
             <div>{priority}</div>
             <div>{date}</div>
             <div>{time}</div>
-            <select value={newStatus} onChange={(e)=>{changeStatus(e)}}>
+            <select value={status} onChange={(e)=>{changeStatus(e)}}>
                 <option value="Not Started">Not Started</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
