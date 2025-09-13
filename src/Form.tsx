@@ -34,7 +34,7 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
         e.preventDefault();
 
         setAssignmentList([...assignmentList, {
-            id: assignmentName + courseName,
+            id: assignmentName + "-" + courseName,
             name: assignmentName,
             coursename: courseName,
             weight: Number(weight),
@@ -58,7 +58,7 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
                         <input value={assignmentName} onChange = {(e) => setAssignmentName(e.target.value)} type="text" className="ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: Assignment 1"></input>
                     </label>
                     <label className="pl-2">Course Name
-                        <input value={courseName} onChange = {(e) => setCourseName(e.target.value)} type="text" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: CS145"></input>
+                        <input value={courseName} onChange = {(e) => setCourseName(e.target.value.toUpperCase())} type="text" className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required placeholder="Ex: CS145"></input>
                     </label>
                     <label className="pl-2">Weight
                         <input value={weight} onChange={(e) => setWeight(e.target.value.replace(/^0+(?=\d)/, ''))} type="number" min={0} max={100} className = "ml-5 border-[1.5px] border-gray shadow-sm px-2" required></input>

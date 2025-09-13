@@ -19,12 +19,19 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
     const changeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setNewStatus(e.target.value);
         setAssignmentList(assignmentList.map((assignment) => {
-            if (assignment.id === name + courseName) {
+            if (assignment.id === name + "-" +courseName) {
                 return {...assignment, status: newStatus};
             } else{
                 return assignment;
             }
         }))
+    }
+
+    const deleteAssignment = () => {
+        const confirmedDeletion = window.confirm("Are you sure you want to delete this assignment?");
+        if (confirmedDeletion){
+            setAssignmentList(prev => prev.filter((assignment) => {return assignment.id !== name + "-" + courseName}));
+        }
     }
 
     const daysLeft = (duedate: string): number => {
@@ -37,6 +44,7 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
 
     return(
         <div id="assignment-row" className="border-2 border-gray-600 flex flex-row items-center justify-between px-10 bg-[#03DAC6] mx-2 h-10">
+            <button type="button" onClick={deleteAssignment}>&#10060;</button>
             <div>{name}</div>
             <div>{courseName}</div>
             <div>{weight}%</div>
