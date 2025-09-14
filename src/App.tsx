@@ -78,6 +78,15 @@ const App = () => {
     setStatus("Not Started");
   };
 
+  const resetFilters = () => {
+    setSelectedCourses([]);
+    setSelectedPriorities([]);
+    setSelectedStatuses([]);
+    setDaysFilter("");
+    
+    setFiltersActive(false);
+  }
+
   return (
     <div id="container">
       <h1 className="text-3xl text-white text-shadow-black text-shadow-md text-center p-2">
@@ -95,12 +104,16 @@ const App = () => {
         <p className="text-white text-xl text-shadow-black text-shadow-md">
           Filter:
         </p>
-        <div
+        <button type="button"
           className="border-2 border-gray-500 bg-white py-1 px-2 hover:bg-gray-300 cursor-pointer"
           onClick={() => setIsFilterFormOpen(true)}
         >
           {filtersActive? "Filtered" : "Click to filter"}
-        </div>
+        </button>
+        <button type="button"
+          className="border-2 border-gray-500 bg-white py-1 px-2 hover:bg-gray-300 cursor-pointer"
+          onClick={resetFilters}
+        >Reset filters</button>
       </div>
 
       {/* Header row */}
