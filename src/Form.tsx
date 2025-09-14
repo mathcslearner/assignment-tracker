@@ -1,11 +1,8 @@
 import React, {useState} from 'react';
 
-
-//Pass the isOpen state from the main app component to the assignment form component using props
-
 type AssignmentFormProps = {
-    isOpen: boolean;
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isAssignmentFormOpen: boolean;
+    setIsAssignmentFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
     assignmentName: string;
     setAssignmentName: React.Dispatch<React.SetStateAction<string>>;
     courseName: string;
@@ -14,19 +11,19 @@ type AssignmentFormProps = {
     setWeight: React.Dispatch<React.SetStateAction<string>>;
     priority: string;
     setPriority: React.Dispatch<React.SetStateAction<string>>;
-    date: any;
-    setDate: React.Dispatch<React.SetStateAction<any>>;
-    time: any;
-    setTime: React.Dispatch<React.SetStateAction<any>>;
+    date: string;
+    setDate: React.Dispatch<React.SetStateAction<string>>;
+    time: string;
+    setTime: React.Dispatch<React.SetStateAction<string>>;
     status: string;
     setStatus: React.Dispatch<React.SetStateAction<string>>;
     assignmentList: Array<any>;
     setAssignmentList: React.Dispatch<React.SetStateAction<Array<any>>>;
 }
 
-const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, courseName, setCourseName, weight, setWeight, priority, setPriority, date, setDate, time, setTime, status, setStatus, assignmentList, setAssignmentList}: AssignmentFormProps) => {
+const AssignmentForm = ({isAssignmentFormOpen, setIsAssignmentFormOpen, assignmentName, setAssignmentName, courseName, setCourseName, weight, setWeight, priority, setPriority, date, setDate, time, setTime, status, setStatus, assignmentList, setAssignmentList}: AssignmentFormProps) => {
 
-    if (!isOpen){
+    if (!isAssignmentFormOpen){
         return null;
     }
 
@@ -44,13 +41,13 @@ const AssignmentForm = ({isOpen, setIsOpen, assignmentName, setAssignmentName, c
             status: status
         }])
 
-        setIsOpen(false);
+        setIsAssignmentFormOpen(false);
     }
     
     return(
         <div id="modal-container" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div id="form-container" className="bg-white w-1/2 h-1/2 m-auto flex flex-col">
-                <button id="close-btn" type="button" className="fixed top-45 right-82 bg-white text-black text-2xl rounded-full w-10 h-10 flex justify-center items-center font-semibold border-2 border-black" onClick={()=>setIsOpen(!isOpen)}>x</button>
+                <button id="close-btn" type="button" className="fixed top-45 right-82 bg-white text-black text-2xl rounded-full w-10 h-10 flex justify-center items-center font-semibold border-2 border-black" onClick={()=>setIsAssignmentFormOpen(false)}>x</button>
                 <h1 className="text-2xl text-center pt-2">Add a new assignment</h1>
                 <h2 className="text-xl text-center pt-2">All fields are required.</h2>
                 <form className="flex mt-2 flex-col gap-2 justify-center">

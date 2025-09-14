@@ -1,15 +1,26 @@
 import React, {useState} from 'react';
 
+interface AssignmentType {
+    id: string;
+    name: string;
+    coursename: string;
+    weight: number;
+    priority: string;
+    date: string;
+    time: string;
+    status: string;
+  }
+
 type AssignmentProps = {
     name: string;
     courseName: string;
     weight: number;
     priority: string;
-    date: any;
-    time: any;
+    date: string;
+    time: string;
     status: string;
-    assignmentList: Array<any>;
-    setAssignmentList: React.Dispatch<React.SetStateAction<Array<any>>>;
+    assignmentList: AssignmentType[];
+    setAssignmentList: React.Dispatch<React.SetStateAction<AssignmentType[]>>;
 }
 
 const Assignment = ({name, courseName, weight, priority, date, time, status, assignmentList, setAssignmentList}: AssignmentProps) => {
