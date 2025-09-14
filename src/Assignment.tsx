@@ -54,7 +54,7 @@ const Assignment = ({name, courseName, weight, priority, date, time, status, ass
     }
 
     return(
-        <div id="assignment-row" className="border-2 border-gray-600 flex flex-row items-center justify-between px-10 bg-[#03DAC6] mx-2 h-10">
+        <div id="assignment-row" className={`border-2 border-gray-600 flex flex-row items-center justify-between px-10 bg-[var(--course-${courseName})] mx-2 h-10`}>
             <button type="button" onClick={deleteAssignment}>&#10060;</button>
             <div>{name}</div>
             <div>{courseName}</div>

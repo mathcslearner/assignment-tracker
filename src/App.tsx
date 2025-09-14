@@ -3,6 +3,7 @@ import "./App.css";
 import AssignmentForm from "./Form.tsx";
 import Assignment from "./Assignment.tsx";
 import FilterForm from "./FilterForm.tsx";
+import ColorsForm from "./ColorsForm.tsx";
 
 interface AssignmentType {
   id: string;
@@ -19,6 +20,28 @@ const App = () => {
   const [isFilterFormOpen, setIsFilterFormOpen] = useState<boolean>(false);
   const [isAssignmentFormOpen, setIsAssignmentFormOpen] = useState<boolean>(false);
   const [filtersActive, setFiltersActive] = useState<boolean>(false);
+  const [isColorsFormOpen, setIsColorsFormOpen] = useState<boolean>(false);
+
+  const [courseColors, setCourseColors] = useState<{ [course: string]: string }>(() => {
+    try {
+      const saved = localStorage.getItem("courseColors");
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.error("Failed to parse course colors from localStorage", e);
+      return {};
+    }
+  });
+  
+  useEffect(() => {
+    localStorage.setItem("courseColors", JSON.stringify(courseColors));
+  
+    // Update CSS variables in :root
+    const root = document.documentElement;
+    Object.entries(courseColors).forEach(([course, color]) => {
+      root.style.setProperty(`--course-${course}`, color);
+    });
+  }, [courseColors]);
+  
 
   // Assignment fields
   const [assignmentName, setAssignmentName] = useState<string>("");
@@ -87,6 +110,10 @@ const App = () => {
     setFiltersActive(false);
   }
 
+  const setColors = () =>{
+    setIsColorsFormOpen(true);
+  }
+
   return (
     <div id="container">
       <h1 className="text-3xl text-white text-shadow-black text-shadow-md text-center p-2">
@@ -96,7 +123,7 @@ const App = () => {
         Welcome to this assignment tracker! Click on the button to add an
         assignment and get started. To delete an assignment, press the red X
         button at the start. It is possible to filter assignments based on
-        course name, weight, priority, status and days left.
+        course name, weight, priority, status and days left. Customize your colors for each course using the button on the bottom left side.
       </p>
 
       {/* Filter button */}
@@ -153,11 +180,18 @@ const App = () => {
       {/* Add button */}
       <button
         type="button"
-        className="rounded-full w-20 h-20 bg-white fixed bottom-3 right-3 font-semibold flex justify-center items-center"
+        className="rounded-full w-20 h-20 bg-white fixed bottom-3 right-3 font-semibold flex justify-center items-center hover:bg-gray-300"
         onClick={openForm}
       >
         <p className="text-4xl">+</p>
       </button>
+
+      <button
+        type="button"
+        className="rounded-full w-20 h-20 bg-white fixed bottom-3 left-3 font-semibold flex justify-center items-center hover:bg-gray-300"
+        onClick={setColors}>
+          <p className="text-xl">Set Colors</p>
+        </button>
 
       {/* Forms */}
       <AssignmentForm
@@ -195,6 +229,15 @@ const App = () => {
         assignmentList={assignmentList}
         setFiltersActive={setFiltersActive}
       />
+
+      <ColorsForm 
+        isColorsFormOpen={isColorsFormOpen} 
+        setIsColorsFormOpen={setIsColorsFormOpen} 
+        assignmentList={assignmentList} 
+        setAssignmentList={setAssignmentList}
+        courseColors={courseColors}
+        setCourseColors={setCourseColors}
+        />
     </div>
   );
 };
